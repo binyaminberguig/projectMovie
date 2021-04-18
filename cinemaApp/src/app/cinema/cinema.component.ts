@@ -36,6 +36,7 @@ export class CinemaComponent implements OnInit {
     )
   }
 
+<<<<<<< HEAD
   reserve(idMovie) {
     const reservation: Reservation = new Reservation();
     reservation._id = Math.random(),
@@ -52,4 +53,10 @@ export class CinemaComponent implements OnInit {
       }
     )
   }
+=======
+  showSummary(description){
+    alert(description);
+  }
+
+>>>>>>> a912a7d7a46fb26aae5c4d35b1e6ce0aed629674
 }
