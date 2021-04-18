@@ -7,7 +7,6 @@ import {Observable} from "rxjs";
 })
 export class AuthService {
 connectedUser:any = null;
-isAdmin:false;
 constructor(private http: HttpClient){
   this.isLogged();
 }

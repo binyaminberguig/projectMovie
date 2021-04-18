@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Note} from './models/note';
+import {Film} from './models/film';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 
@@ -7,15 +7,15 @@ import {Observable} from "rxjs";
   providedIn: 'root'
 })
 export class NotesService {
-  notes: Array<Note> = new Array<Note>();
+  films: Array<Film> = new Array<Film>();
   constructor(private http: HttpClient) { }
 
-  addNote(note): any{
-    return this.http.post("http://localhost:3000/notes",note);
+  addFilm(film): any{
+    return this.http.post("http://localhost:3000/film",film);
   }
 
-  getNotes():any{
-    return this.http.get("http://localhost:3000/notes");
+  getFilms():any{
+    return this.http.get("http://localhost:3000/films");
   }
 
   getNote(noteId:any):Observable<any>{

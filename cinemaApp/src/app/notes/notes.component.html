@@ -1,15 +1,19 @@
-<mat-card class="new-note">
+<mat-card class="new-film">
   <mat-card-header>
-    <mat-card-title>New Note</mat-card-title>
-    <mat-card-subtitle>Please fill all field</mat-card-subtitle>
+    <mat-card-title>Nouveau film</mat-card-title>
   </mat-card-header>
   <mat-card-content>
     <mat-form-field>
-      <mat-label>Note title</mat-label>
+      <mat-label>Titre du film</mat-label>
       <input matInput type="text" [(ngModel)]="noteTitle">
     </mat-form-field>
     <mat-form-field>
-      <textarea matInput [(ngModel)]="noteText" placeholder="Note Text"></textarea>
+      <textarea matInput [(ngModel)]="noteText" placeholder="Résumé"></textarea>
+    </mat-form-field>
+    <mat-form-field>
+      <ngx-mat-file-input [(ngModel)]="img"  [accept]="accept">
+        <mat-icon ngxMatFileInputIcon>folder</mat-icon>
+      </ngx-mat-file-input>
     </mat-form-field>
   </mat-card-content>
   <mat-card-actions>
@@ -17,7 +21,36 @@
   </mat-card-actions>
 </mat-card>
 
-<div class="notes">
-<app-note-block *ngFor="let note of notes" [note]="note" (deleteNote)="deleteNote($event)"></app-note-block>
-</div>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <!-- Position Column -->
+  <ng-container matColumnDef="position">
+    <th mat-header-cell *matHeaderCellDef> No. </th>
+    <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="title">
+    <th mat-header-cell *matHeaderCellDef> Titre </th>
+    <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+  </ng-container>
+
+  <!-- Weight Column -->
+  <ng-container matColumnDef="nbPlace">
+    <th mat-header-cell *matHeaderCellDef> Nombre de place disponible </th>
+    <td mat-cell *matCellDef="let element"> {{element.nbPlace}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell  *matHeaderCellDef > Actions </th>
+    <td mat-cell *matCellDef="let row" >
+      <button mat-button color="primary">Modifier</button>
+      <button mat-button color="warn">Supprimer</button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
 
