@@ -60,19 +60,19 @@ app.get('/notes/:id',(request, response) => {
 });
 
 // POST /notes
-app.post('/film',(request, response) => {
-    let requestFilm = request.body;
+app.post('/movie',(request, response) => {
+    let requestMovie = request.body;
 
-    let newFilm = new Film({
-        title: requestFilm.title,
-        description: requestFilm.description,
-        image: requestFilm.image
+    let newMovie = new Movie({
+        title: requestMovie.title,
+        description: requestMovie.description,
+        picture: requestMovie.picture
     })
 
-    newFilm.save((error, film)=>{
+    newMovie.save((error, movie)=>{
         if(error) return console.error(error);
-        console.log(film);
-        response.json(film);
+        console.log(movie);
+        response.json(movie);
     })
 });
 
@@ -143,9 +143,11 @@ app.post('/register',(request, response) => {
 });
 
 app.get('/logout',(request, response) => {
+
     request.session.destroy(err=>{
         if(err) return response.status(409).json({msg:'err'});
         response.status(200).json({msg:"Logout ok"});
+        this.isConnected = false;
     })
 });
 
@@ -156,6 +158,7 @@ app.get('/isLogged',(request, response) => {
         if(err) return response.status(401).json({msg:'err'});
         if(!user) return response.status(401).json({msg:'err'});
         request.session.userId = user._id
+        this.isConnected = true;
         response.status(200).json({login:user.login, fullName:user.fullName});
     }
 });

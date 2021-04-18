@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {NotesService} from '../notes.service';
-import {Film} from '../models/film';
+import {MoviesService} from '../movies.service';
+import {Movie} from '../models/movie';
 import {Router} from '@angular/router';
 export interface PeriodicElement {
   title: string;
@@ -22,31 +22,31 @@ export class NotesComponent implements OnInit {
   dataSource = ELEMENT_DATA;
   noteTitle: string;
   noteText: string;
-  img: string;
+  img: any;
   accept="image/png, image/jpeg"
-  films: any;
+  movies: any;
 
-  constructor(public notesService: NotesService, private router: Router) { }
+  constructor(public moviesService: MoviesService, private router: Router) { }
 
   ngOnInit(): void {
-    this.getFilms();
-    console.log(this.films)
+    this.getMovies();
+    console.log(this.movies)
   }
 
-  addNote(): void {
+  addMovie(): void {
 
-    const film: Film = new Film();
-    film._id = Math.random(),
-      film.title = this.noteTitle,
-      film.description = this.noteText,
-      film.image = this.img;
-
+    const movie: Movie = new Movie();
+    movie._id = Math.random(),
+    movie.title = this.noteTitle,
+    movie.description = this.noteText,
+    movie.picture = "./assets/images/" + this.img.name;
+ 
     this.noteTitle = '';
     this.noteText = '';
     this.img= '';
-    this.notesService.addFilm(film).subscribe(
+    this.moviesService.addMovie(movie).subscribe(
       (film: any) => {
-        this.films.push(film);
+        this.movies.push(movie);
         console.log('ajouté')
       },
       (error) => {
@@ -60,15 +60,17 @@ export class NotesComponent implements OnInit {
     this.router.navigate(['/note', noteId]);
   }*/
 
-  getFilms() {
-    this.notesService.getFilms().subscribe(
-      (films: Array<Film>) => {
-        this.films = films;
+
+  getMovies() {
+    this.moviesService.getMovies().subscribe(
+      (movies: Array<Movie>) => {
+        this.movies = movies;
+        console.log(this.movies);
       },
       (error) => {
-        console.log('error', error);
+        console.log("error")
       }
-    );
+    )
   }
 /*
   deleteNote(note: Film) {

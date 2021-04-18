@@ -1,12 +1,23 @@
-<mat-card>
-  <mat-card-header>
-    <mat-card-title>Titre</mat-card-title>
-    <mat-card-subtitle>Résumer</mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-content>
-    <img src="./assets/images/téléchargement.jpeg" alt="tagada">
-  </mat-card-content>
-  <mat-card-actions>
-    <button mat-raised-button>Reserver</button>
-  </mat-card-actions>
-</mat-card>
+<div class="content">
+  <div fxLayout="row wrap" fxLayoutGap="16px grid">
+    <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let movie of this.movies">
+      <mat-card class="mat-elevation-z4" >
+        <mat-card-header>
+          <mat-card-title>{{movie.title}}</mat-card-title>
+          <mat-card-subtitle>{{movie.description}}
+          </mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image src={{movie.picture}}>
+        <mat-card-content>
+          <p>
+            {{movie.description}}
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button>LIKE</button>
+          <button mat-button>SHARE</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+  </div>

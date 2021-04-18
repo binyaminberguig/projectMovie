@@ -20,6 +20,7 @@ import { ReservationComponent } from './reservation/reservation.component';
 import {MatTableModule} from '@angular/material/table';
 import { NgxMatFileInputModule } from '@angular-material-components/file-input';
 import {MatIconModule} from "@angular/material/icon";
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import {MatIconModule} from "@angular/material/icon";
     HttpClientModule,
     MatTableModule,
     NgxMatFileInputModule,
-    MatIconModule
+    MatIconModule,
+    FlexLayoutModule
   ],
   providers: [],
   bootstrap: [AppComponent]

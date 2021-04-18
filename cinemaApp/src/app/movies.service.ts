@@ -15,4 +15,9 @@ getMovies():any{
     return this.http.get("http://localhost:3000/movies");
   }
 
+  addMovie(movie): any{
+    console.log(movie);
+    return this.http.post("http://localhost:3000/movie",movie);
+  }
+
 }
