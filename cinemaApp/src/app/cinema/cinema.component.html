@@ -14,8 +14,15 @@
           </p>
         </mat-card-content>
         <mat-card-actions>
-          <button mat-button>LIKE</button>
-          <button mat-button>SHARE</button>
+          <button mat-button color="primary" (click)="reserve(movie._id)">Reserver</button>
+          <mat-label>Nombre de personnes</mat-label>
+          <select [(ngModel)]="nbPlace">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
         </mat-card-actions>
       </mat-card>
     </div>

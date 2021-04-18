@@ -4,10 +4,9 @@ const app = express();
 var cors = require('cors');
 const session = require('express-session');
 const mongoose = require('mongoose');
-const Film = require('./models/film');
-const Note = require('./models/film');
 const Movie = require('./models/movie');
 const User = require('./models/user');
+const Reservation = require("./models/reservation");
 var isConnected;
 mongoose.connect('mongodb+srv://admin:admin@cluster0.vgfdm.mongodb.net/myFirstDatabase?retryWrites=true&w=majority')
     .then(()=>{
@@ -30,15 +29,6 @@ app.use(cors({credentials: true, origin: 'http://localhost:4200'}));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(session({secret:"mySecretKey", cookie:{maxAge: 24 * 60 * 60 * 1000}}));
-let films = [];
-
-app.get('/films', (request,response) => {
-    if(!isConnected) return response.status(200).json([]);
-    Film.find({}).sort({_id:-1}).exec((error,films)=>{
-        if(error) return console.error(err);
-        response.json(films);
-    });
-});
 
 app.get('/movies', (request,response) => {
     console.log(request.session.userId);
@@ -66,10 +56,40 @@ app.post('/movie',(request, response) => {
     let newMovie = new Movie({
         title: requestMovie.title,
         description: requestMovie.description,
-        picture: requestMovie.picture
+        picture: requestMovie.picture,
+        nbPlace: 50
     })
 
     newMovie.save((error, movie)=>{
+        if(error) return console.error(error);
+        console.log(movie);
+        response.json(movie);
+    })
+});
+
+
+app.get('/reservation', (request,response) => {
+    console.log(request.session.userId);
+    if(!this.isConnected) return response.status(200).json([]);
+    Reservation.find({}).sort({_id:-1}).exec((error,reservation)=>{
+        if(error) return console.error(err);
+        response.json(reservation);
+    });
+});
+
+// POST /notes
+app.post('/reservation',(request, response) => {
+    let requestReservation = request.body;
+    const today = new Date();
+
+    let newReservation = new Reservation({
+        idUser: requestReservation.idUser,
+        idFilm: requestReservation.idFilm,
+        date: today,
+        nbPlace: requestReservation.nbPlace
+    })
+
+    newReservation.save((error, movie)=>{
         if(error) return console.error(error);
         console.log(movie);
         response.json(movie);
@@ -112,7 +132,7 @@ app.post('/login',(request, response) => {
         request.session.userId= user.id;
         this.isConnected = true;
         console.log( request.session.userId);
-        response.status(200).json({login:user.login, fullName:user.fullName});
+        response.status(200).json({login:user.login, fullName:user.fullName, id:user.id});
         
     });
 });

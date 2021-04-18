@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MoviesService} from '../movies.service';
 import {Movie} from '../models/movie';
+import {Reservation} from "../models/reservation";
+import {AuthService} from "../auth.service";
 
 @Component({
   selector: 'app-cinema',
@@ -11,7 +13,9 @@ import {Movie} from '../models/movie';
 export class CinemaComponent implements OnInit {
 
   movies: Array<Movie>
-  constructor(private route: ActivatedRoute,private router: Router,public moviesService: MoviesService) { }
+  reservation: Array<Reservation>;
+  nbPlace: any;
+  constructor(private route: ActivatedRoute,private router: Router,public moviesService: MoviesService, public authService: AuthService) { }
 
 
 
@@ -32,4 +36,20 @@ export class CinemaComponent implements OnInit {
     )
   }
 
+  reserve(idMovie) {
+    const reservation: Reservation = new Reservation();
+    reservation._id = Math.random(),
+    reservation.idFilm = idMovie;
+    reservation.idUser = this.authService.connectedUser.id;;
+    reservation.nbPlace = this.nbPlace;
+    this.moviesService.addReservation(reservation).subscribe(
+      (reservation: Array<Reservation>) => {
+        this.reservation = reservation;
+        console.log(this.reservation);
+      },
+      (error) => {
+        console.log("error")
+      }
+    )
+  }
 }

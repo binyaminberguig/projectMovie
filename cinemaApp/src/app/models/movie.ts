@@ -3,5 +3,6 @@ export class Movie {
     title: string;
     description: string;
     picture: string;
+    nbPlace:number;
   }
-  
+
