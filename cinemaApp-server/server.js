@@ -4,8 +4,9 @@ const app = express();
 var cors = require('cors');
 const session = require('express-session');
 const mongoose = require('mongoose');
-const Note = require('./models/film');
+const Film = require('./models/film');
 const User = require('./models/user');
+var isConnected;
 mongoose.connect('mongodb+srv://admin:admin@cluster0.vgfdm.mongodb.net/myFirstDatabase?retryWrites=true&w=majority')
     .then(()=>{
         console.log('Sucessfully connected to DB')
@@ -27,13 +28,13 @@ app.use(cors({credentials: true, origin: 'http://localhost:4200'}));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(session({secret:"mySecretKey", cookie:{maxAge: 24 * 60 * 60 * 1000}}));
-let notes = [];
+let films = [];
 
-app.get('/notes', (request,response) => {
-    if(!request.session.userId) return response.status(200).json([]);
-    Note.find({}).sort({_id:-1}).exec((error,notes)=>{
+app.get('/films', (request,response) => {
+    if(!isConnected) return response.status(200).json([]);
+    Film.find({}).sort({_id:-1}).exec((error,films)=>{
         if(error) return console.error(err);
-        response.json(notes);
+        response.json(films);
     });
 });
 
@@ -48,19 +49,19 @@ app.get('/notes/:id',(request, response) => {
 });
 
 // POST /notes
-app.post('/notes',(request, response) => {
-    let requestNote = request.body;
+app.post('/film',(request, response) => {
+    let requestFilm = request.body;
 
-    let newNote = new Note({
-        noteTitle: requestNote.noteTitle,
-        noteText: requestNote.noteText,
-        noteColor: requestNote.color
+    let newFilm = new Film({
+        title: requestFilm.title,
+        description: requestFilm.description,
+        image: requestFilm.image
     })
 
-    newNote.save((error, note)=>{
+    newFilm.save((error, film)=>{
         if(error) return console.error(error);
-        console.log(note);
-        response.json(note);
+        console.log(film);
+        response.json(film);
     })
 });
 
@@ -98,6 +99,7 @@ app.post('/login',(request, response) => {
             return response.status(401).json({error: "Wrong login"});
         }
         request.session.userId= user.id;
+        this.isConnected=true;
         response.status(200).json({login:user.login, fullName:user.fullName});
     });
 });
