@@ -1,0 +1,17 @@
+<mat-card class="edit-note">
+
+  <mat-card-content>
+    <mat-form-field>
+      <mat-label>Note title</mat-label>
+      <input name="note-title" matInput type="text" [(ngModel)]="note.noteTitle" placeholder="Note title"/>
+    </mat-form-field>
+    <mat-form-field>
+      <textarea name="note-text" matInput  [(ngModel)]="note.noteText" placeholder="Note text"></textarea>
+    </mat-form-field>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button (click)="updateNote()" mat-raised-button color="accent">Modifier</button>
+  </mat-card-actions>
+
+</mat-card>

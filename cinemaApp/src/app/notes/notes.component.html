@@ -1,0 +1,23 @@
+<mat-card class="new-note">
+  <mat-card-header>
+    <mat-card-title>New Note</mat-card-title>
+    <mat-card-subtitle>Please fill all field</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-form-field>
+      <mat-label>Note title</mat-label>
+      <input matInput type="text" [(ngModel)]="noteTitle">
+    </mat-form-field>
+    <mat-form-field>
+      <textarea matInput [(ngModel)]="noteText" placeholder="Note Text"></textarea>
+    </mat-form-field>
+  </mat-card-content>
+  <mat-card-actions>
+    <button (click)="addNote()" mat-raised-button>Ajouter</button>
+  </mat-card-actions>
+</mat-card>
+
+<div class="notes">
+<app-note-block *ngFor="let note of notes" [note]="note" (deleteNote)="deleteNote($event)"></app-note-block>
+</div>
+
