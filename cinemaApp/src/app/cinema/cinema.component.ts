@@ -32,4 +32,8 @@ export class CinemaComponent implements OnInit {
     )
   }
 
+  showSummary(description){
+    alert(description);
+  }
+
 }

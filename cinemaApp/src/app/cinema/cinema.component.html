@@ -4,8 +4,6 @@
       <mat-card class="mat-elevation-z4" >
         <mat-card-header>
           <mat-card-title>{{movie.title}}</mat-card-title>
-          <mat-card-subtitle>{{movie.description}}
-          </mat-card-subtitle>
         </mat-card-header>
         <img mat-card-image src={{movie.picture}}>
         <mat-card-content>
@@ -14,8 +12,13 @@
           </p>
         </mat-card-content>
         <mat-card-actions>
-          <button mat-button>LIKE</button>
-          <button mat-button>SHARE</button>
+          <button mat-button (click)=showSummary(movie.description)>Summary</button>
+          <select>
+            <option *ngFor="let number of [1,2,3,4,5]" [value]="number.value">
+              {{number}}
+            </option>
+          </select>
+          <button mat-button>RESERVE</button>
         </mat-card-actions>
       </mat-card>
     </div>
