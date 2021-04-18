@@ -5,6 +5,8 @@ var cors = require('cors');
 const session = require('express-session');
 const mongoose = require('mongoose');
 const Film = require('./models/film');
+const Note = require('./models/film');
+const Movie = require('./models/movie');
 const User = require('./models/user');
 var isConnected;
 mongoose.connect('mongodb+srv://admin:admin@cluster0.vgfdm.mongodb.net/myFirstDatabase?retryWrites=true&w=majority')
@@ -35,6 +37,15 @@ app.get('/films', (request,response) => {
     Film.find({}).sort({_id:-1}).exec((error,films)=>{
         if(error) return console.error(err);
         response.json(films);
+    });
+});
+
+app.get('/movies', (request,response) => {
+    console.log(request.session.userId);
+    if(!this.isConnected) return response.status(200).json([]);
+    Movie.find({}).sort({_id:-1}).exec((error,movies)=>{
+        if(error) return console.error(err);
+        response.json(movies);
     });
 });
 
@@ -99,8 +110,10 @@ app.post('/login',(request, response) => {
             return response.status(401).json({error: "Wrong login"});
         }
         request.session.userId= user.id;
-        this.isConnected=true;
+        this.isConnected = true;
+        console.log( request.session.userId);
         response.status(200).json({login:user.login, fullName:user.fullName});
+        
     });
 });
 
