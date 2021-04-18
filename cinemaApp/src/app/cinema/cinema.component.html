@@ -12,17 +12,6 @@
           </p>
         </mat-card-content>
         <mat-card-actions>
-<<<<<<< HEAD
-          <button mat-button color="primary" (click)="reserve(movie._id)">Reserver</button>
-          <mat-label>Nombre de personnes</mat-label>
-          <select [(ngModel)]="nbPlace">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-          </select>
-=======
           <button mat-button (click)=showSummary(movie.description)>Summary</button>
           <select>
             <option *ngFor="let number of [1,2,3,4,5]" [value]="number.value">
@@ -30,7 +19,6 @@
             </option>
           </select>
           <button mat-button>RESERVE</button>
->>>>>>> a912a7d7a46fb26aae5c4d35b1e6ce0aed629674
         </mat-card-actions>
       </mat-card>
     </div>
