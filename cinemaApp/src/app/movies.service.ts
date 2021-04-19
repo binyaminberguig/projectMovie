@@ -10,22 +10,18 @@ export class MoviesService {
     constructor(private http: HttpClient) { }
 
   getMovies():any{
-    console.log("ok");
     return this.http.get("http://localhost:3000/movies");
   }
 
   addMovie(movie): any{
-    console.log(movie);
     return this.http.post("http://localhost:3000/movie",movie);
   }
 
   addReservation(reservation) {
-    console.log(reservation);
     return this.http.post("http://localhost:3000/reservation",reservation);
   }
 
   getReservations():any{
-    console.log("ok");
     return this.http.get("http://localhost:3000/reservation");
   }
 }

@@ -2,25 +2,27 @@
   <div fxLayout="row wrap" fxLayoutGap="16px grid">
     <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let movie of this.movies">
       <mat-card class="mat-elevation-z4" >
-        <mat-card-header>
+        <mat-card-header style="height: 70px;">
           <mat-card-title>{{movie.title}}</mat-card-title>
         </mat-card-header>
-        <img mat-card-image src={{movie.picture}}>
+        <img mat-card-image style="height: 400px;" src={{movie.picture}}>
         <mat-card-content>
           <p>
             {{movie.description}}
           </p>
         </mat-card-content>
-        <mat-card-actions>
-          <button mat-button color="primary" (click)="reserve(movie._id)">Reserver</button>
+        <mat-card-actions class="example-card">
+          <mat-form-field appearance="fill" >
           <mat-label>Nombre de personnes</mat-label>
-          <select [(ngModel)]="nbPlace">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-          </select>
+          <mat-select [(ngModel)]="nbPlace" >
+            <mat-option>1</mat-option>
+            <mat-option>2</mat-option>
+            <mat-option>3</mat-option>
+            <mat-option>4</mat-option>
+            <mat-option>5</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button mat-button color="primary" (click)="reserve(movie._id)">Reserver</button>
         </mat-card-actions>
       </mat-card>
     </div>

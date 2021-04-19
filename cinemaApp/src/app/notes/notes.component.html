@@ -1,17 +1,20 @@
 <mat-card class="new-film">
   <mat-card-header>
-    <mat-card-title>Nouveau film</mat-card-title>
+    <mat-card-title>New Movie</mat-card-title>
   </mat-card-header>
   <mat-card-content>
     <mat-form-field>
-      <mat-label>Titre du film</mat-label>
-      <input matInput type="text" [(ngModel)]="noteTitle">
+      <mat-label>Movie Title</mat-label>
+      <input matInput type="text" [(ngModel)]="movieTitle">
     </mat-form-field>
     <mat-form-field>
-      <textarea matInput [(ngModel)]="noteText" placeholder="Résumé"></textarea>
+      <textarea matInput [(ngModel)]="movieSynopsis" placeholder="Synopsis"></textarea>
     </mat-form-field>
     <mat-form-field>
-      <ngx-mat-file-input [(ngModel)]="img"  [accept]="accept">
+      <textarea matInput [(ngModel)]="moviePlace" placeholder="Places Number"></textarea>
+    </mat-form-field>
+    <mat-form-field>
+      <ngx-mat-file-input [(ngModel)]="moviePicture" [accept]="accept">
         <mat-icon ngxMatFileInputIcon>folder</mat-icon>
       </ngx-mat-file-input>
     </mat-form-field>
@@ -25,19 +28,19 @@
 
   <!-- Position Column -->
   <ng-container matColumnDef="position">
-    <th mat-header-cell *matHeaderCellDef> No. </th>
+    <th mat-header-cell *matHeaderCellDef> Title </th>
     <td mat-cell *matCellDef="let element"> {{element.title}} </td>
   </ng-container>
 
   <!-- Name Column -->
   <ng-container matColumnDef="title">
-    <th mat-header-cell *matHeaderCellDef> Titre </th>
-    <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+    <th mat-header-cell *matHeaderCellDef> Synopsis </th>
+    <td mat-cell *matCellDef="let element"> {{element.synopsis}} </td>
   </ng-container>
 
   <!-- Weight Column -->
   <ng-container matColumnDef="nbPlace">
-    <th mat-header-cell *matHeaderCellDef> Nombre de place disponible </th>
+    <th mat-header-cell *matHeaderCellDef> Number of Available Places </th>
     <td mat-cell *matCellDef="let element"> {{element.nbPlace}} </td>
   </ng-container>
 

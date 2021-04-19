@@ -10,9 +10,10 @@ import {Router} from '@angular/router';
 })
 export class NotesComponent implements OnInit {
   displayedColumns: string[] = ['position', 'title', 'nbPlace','actions'];
-  noteTitle: string;
-  noteText: string;
-  img: any;
+  movieTitle: string;
+  movieSynopsis: string;
+  moviePlace: any;
+  moviePicture: any;
   accept="image/png, image/jpeg"
   movies: any;
 
@@ -27,13 +28,15 @@ export class NotesComponent implements OnInit {
 
     const movie: Movie = new Movie();
     movie._id = Math.random(),
-    movie.title = this.noteTitle,
-    movie.description = this.noteText,
-    movie.picture = "./assets/images/" + this.img.name;
+    movie.title = this.movieTitle,
+    movie.synopsis = this.movieSynopsis,
+    movie.picture = "./assets/images/" + this.moviePicture.name;
+    movie.nbPlace = this.moviePlace,
 
-    this.noteTitle = '';
-    this.noteText = '';
-    this.img= '';
+    this.movieTitle = '';
+    this.movieSynopsis = '';
+    this.moviePicture= '';
+    this.moviePlace = '';
     this.moviesService.addMovie(movie).subscribe(
       (movie: any) => {
         this.movies.push(movie);

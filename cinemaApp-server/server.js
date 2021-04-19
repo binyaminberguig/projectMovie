@@ -55,9 +55,9 @@ app.post('/movie',(request, response) => {
 
     let newMovie = new Movie({
         title: requestMovie.title,
-        description: requestMovie.description,
+        synopsis: requestMovie.synopsis,
         picture: requestMovie.picture,
-        nbPlace: 50
+        nbPlace: requestMovie.nbPlace
     })
 
     newMovie.save((error, movie)=>{
@@ -126,6 +126,7 @@ app.post('/login',(request, response) => {
         if (error){
             return response.status(404).json({error: error});
         }
+        console.log(user);
         if (!user){
             return response.status(401).json({error: "Wrong login"});
         }
