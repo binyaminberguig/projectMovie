@@ -11,7 +11,9 @@
             {{movie.description}}
           </p>
         </mat-card-content>
+        
         <mat-card-actions class="example-card">
+          <button mat-button (click)="openDialog()">Open dialog</button>
           <mat-form-field appearance="fill" >
           <mat-label>Nombre de personnes</mat-label>
           <mat-select [(ngModel)]="nbPlace" >

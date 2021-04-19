@@ -22,6 +22,7 @@ import { NgxMatFileInputModule } from '@angular-material-components/file-input';
 import {MatIconModule} from "@angular/material/icon";
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {MatSelectModule} from '@angular/material/select';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import {MatSelectModule} from '@angular/material/select';
     NgxMatFileInputModule,
     MatIconModule,
     FlexLayoutModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]
