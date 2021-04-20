@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Movie} from './models/movie';
 import {HttpClient} from "@angular/common/http";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,10 @@ export class MoviesService {
 
   addMovie(movie): any{
     return this.http.post("http://localhost:3000/movie",movie);
+  }
+
+  deleteNote(noteId:any):Observable<any>{
+    return this.http.delete("http://localhost:3000/movies/"+ noteId)
   }
 
   addReservation(reservation) {

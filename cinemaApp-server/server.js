@@ -114,8 +114,8 @@ app.put('/notes/:id',(request, response) => {
 })
 
 // DELETE /notes:id
-app.delete('/notes/:id',(request, response) => {
-    Note.deleteOne({_id:request.params.id}, (error)=>{
+app.delete('/movies/:id',(request, response) => {
+    Movie.deleteOne({_id:request.params.id}, (error)=>{
         if(error) return response.status(400).json({error:error});
         response.status(201).json({msg:"ok"});
     })

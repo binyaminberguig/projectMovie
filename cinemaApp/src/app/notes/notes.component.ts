@@ -64,18 +64,19 @@ export class NotesComponent implements OnInit {
       }
     )
   }
-/*
-  deleteNote(note: Film) {
-    this.notesService.deleteNote(note._id).subscribe(
+
+  deleteNote(movie: Movie) {
+    console.log(movie);
+    this.moviesService.deleteNote(movie._id).subscribe(
       () => {
-        const index = this.notes.indexOf(note);
-        this.notes.splice(index, 1);
+        const index = this.movies.indexOf(movie);
+        this.movies.splice(index, 1);
       },
       (error) => {
-        console.log('delete error');
+        console.log('delete error',error);
       }
     );
-  }*/
+  }
 }
 
 
