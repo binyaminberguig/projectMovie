@@ -23,6 +23,7 @@ import {MatIconModule} from "@angular/material/icon";
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDialogModule} from '@angular/material/dialog';
+import { NoteComponent } from './note/note.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     NotesComponent,
     RegisterComponent,
     CinemaComponent,
-    ReservationComponent
+    ReservationComponent,
+    NoteComponent
   ],
   imports: [
     BrowserModule,

@@ -49,6 +49,16 @@ app.get('/notes/:id',(request, response) => {
     });
 });
 
+app.get('/movie/:id',(request, response) => {
+    console.log(request.params.id)
+    Movie.findOne( {_id: request.params.id}, (error, note) => {
+        if (error){
+            return response.status(404).json({error: error});
+        }
+        response.status(200).json(note);
+    });
+});
+
 // POST /notes
 app.post('/movie',(request, response) => {
     let requestMovie = request.body;
@@ -97,17 +107,17 @@ app.post('/reservation',(request, response) => {
 });
 
 // PUT /notes:id
-app.put('/notes/:id',(request, response) => {
+app.put('/movies/:id',(request, response) => {
     let requestNote = request.body;
 
-    let newNote = new Note({
-        _id: request.params.id,
-        noteTitle: requestNote.noteTitle,
-        noteText: requestNote.noteText,
-        noteColor: requestNote.noteColor
+    let newMovie = new Movie({
+        title: requestNote.title,
+        synopsis: requestNote.synopsis,
+        picture: requestNote.picture,
+        nbPlace: requestNote.nbPlace
     })
 
-    Note.updateOne({_id:request.params.id}, newNote, (error, note)=>{
+    Movie.updateOne({_id:request.params.id}, newMovie, (error, note)=>{
         if(error) return response.status(400).json({error:error});
         response.status(201).json(note);
     })

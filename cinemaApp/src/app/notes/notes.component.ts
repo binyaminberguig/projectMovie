@@ -48,9 +48,9 @@ export class NotesComponent implements OnInit {
   }
 
 
-  /*editNote(noteId: number): void {
+  editNote(noteId: number): void {
     this.router.navigate(['/note', noteId]);
-  }*/
+  }
 
 
   getMovies() {
