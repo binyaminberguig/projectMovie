@@ -45,6 +45,7 @@ export class NotesComponent implements OnInit {
         console.log('error', error);
       }
     );
+    this.getMovies();
   }
 
 
@@ -76,6 +77,7 @@ export class NotesComponent implements OnInit {
         console.log('delete error',error);
       }
     );
+    this.getMovies();
   }
 }
 
