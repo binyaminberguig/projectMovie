@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 const Movie = require('./models/movie');
 const User = require('./models/user');
 const Reservation = require("./models/reservation");
-var isConnected;
+
 mongoose.connect('mongodb+srv://admin:admin@cluster0.vgfdm.mongodb.net/myFirstDatabase?retryWrites=true&w=majority')
     .then(()=>{
         console.log('Sucessfully connected to DB')
@@ -140,7 +140,7 @@ app.post('/login',(request, response) => {
         if (!user){
             return response.status(401).json({error: "Wrong login"});
         }
-        request.session.userId= user.id;
+        request.session.userId= user._id;
         this.isConnected = true;
         console.log( request.session.userId);
         response.status(200).json({login:user.login, fullName:user.fullName, id:user.id});
@@ -189,7 +189,6 @@ app.get('/isLogged',(request, response) => {
         if(err) return response.status(401).json({msg:'err'});
         if(!user) return response.status(401).json({msg:'err'});
         request.session.userId = user._id
-        this.isConnected = true;
         response.status(200).json({login:user.login, fullName:user.fullName});
     }
 });
