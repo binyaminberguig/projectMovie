@@ -40,12 +40,13 @@ export class NotesComponent implements OnInit {
     this.moviesService.addMovie(movie).subscribe(
       (movie: any) => {
         this.movies.push(movie);
+        this.getMovies();
       },
       (error) => {
         console.log('error', error);
       }
     );
-    this.getMovies();
+
   }
 
 

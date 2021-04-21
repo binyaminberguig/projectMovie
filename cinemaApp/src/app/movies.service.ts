@@ -22,11 +22,11 @@ export class MoviesService {
     return this.http.delete("http://localhost:3000/movies/"+ noteId)
   }
 
-  getMovie(noteId:any):Observable<any>{
-    return this.http.get("http://localhost:3000/movies/"+ noteId)
+  getMovie(movieId:any):Observable<any>{
+    return this.http.get("http://localhost:3000/movie/"+ movieId)
   }
 
-  updateNote(movie):any{
+  updateMovie(movie):any{
       console.log(movie)
     return this.http.put("http://localhost:3000/movies/"+ movie._id, movie)
   }

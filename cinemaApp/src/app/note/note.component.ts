@@ -12,15 +12,16 @@ import {MoviesService} from "../movies.service";
 export class NoteComponent implements OnInit {
   accept="image/png, image/jpeg"
   id:any;
-  movies:Movie;
+  movie:Movie;
   constructor(private route: ActivatedRoute, private router: Router, public moviesService:MoviesService) { }
 
   ngOnInit(): void {
-    this.id = this.route.snapshot.paramMap.get('id');
+    this.id = this.route.snapshot.paramMap.get('_id');
+    console.log(this.id);
       this.moviesService.getMovie(this.id).subscribe(
-        (movies: Movie) => {
-          this.movies = movies;
-          console.log(this.movies)
+        (movie: Movie) => {
+          this.movie = movie;
+          console.log('movie:',this.movie)
         },
         (error) => {
           console.log("error", error)
@@ -29,9 +30,10 @@ export class NoteComponent implements OnInit {
 
   }
 
-  updateNote():void {
-    this.moviesService.updateNote(this.movies).subscribe(
+  updateMovie():void {
+    this.moviesService.updateMovie(this.movie).subscribe(
       (movies:Movie)=>{
+        console.log('good');
         this.router.navigate(["/notes"]);
       },
       (error)=>{

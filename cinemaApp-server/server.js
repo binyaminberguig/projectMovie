@@ -50,6 +50,7 @@ app.get('/notes/:id',(request, response) => {
 });
 
 app.get('/movie/:id',(request, response) => {
+    console.log('salut');
     console.log(request.params.id)
     Movie.findOne( {_id: request.params.id}, (error, note) => {
         if (error){
@@ -106,20 +107,21 @@ app.post('/reservation',(request, response) => {
     })
 });
 
-// PUT /notes:id
+
 app.put('/movies/:id',(request, response) => {
-    let requestNote = request.body;
-
+    let requestMovie = request.body;
+    console.log('update');
     let newMovie = new Movie({
-        title: requestNote.title,
-        synopsis: requestNote.synopsis,
-        picture: requestNote.picture,
-        nbPlace: requestNote.nbPlace
+        _id: request.params.id,
+        title: requestMovie.title,
+        synopsis: requestMovie.synopsis,
+        picture: requestMovie.picture,
+        nbPlace: requestMovie.nbPlace
     })
-
-    Movie.updateOne({_id:request.params.id}, newMovie, (error, note)=>{
+    console.log(newMovie);
+    Movie.updateOne({_id:request.params.id}, newMovie, (error, movie)=>{
         if(error) return response.status(400).json({error:error});
-        response.status(201).json(note);
+        response.status(201).json(movie);
     })
 })
 

@@ -5,21 +5,21 @@
   <mat-card-content>
     <mat-form-field>
       <mat-label>Movie Title</mat-label>
-      <input matInput type="text" [(ngModel)]="movies.title">
+      <input matInput type="text" [(ngModel)]="movie.title" placeholder="Title">
     </mat-form-field>
     <mat-form-field>
-      <textarea matInput [(ngModel)]="movies.synopsis" placeholder="Synopsis"></textarea>
+      <textarea matInput [(ngModel)]="movie.synopsis" placeholder="Synopsis"></textarea>
     </mat-form-field>
     <mat-form-field>
-      <textarea matInput [(ngModel)]="movies.nbPlace" placeholder="Places Number"></textarea>
+      <textarea matInput [(ngModel)]="movie.nbPlace" placeholder="Places Number"></textarea>
     </mat-form-field>
     <mat-form-field>
-      <ngx-mat-file-input [(ngModel)]="movies.picture" [accept]="accept">
+      <ngx-mat-file-input [(ngModel)]="movie.picture" [accept]="accept">
         <mat-icon ngxMatFileInputIcon>folder</mat-icon>
       </ngx-mat-file-input>
     </mat-form-field>
   </mat-card-content>
   <mat-card-actions>
-    <button (click)="updateNote()" mat-raised-button>Modifier</button>
+    <button (click)="updateMovie()" mat-raised-button>Modifier</button>
   </mat-card-actions>
 </mat-card>
