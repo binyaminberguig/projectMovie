@@ -28,7 +28,6 @@ export class MoviesComponent implements OnInit {
     this.moviesService.getMovies().subscribe(
       (movies: Array<Movie>) => {
         this.movies = movies;
-        console.log(this.movies);
       },
       (error) => {
         console.log("error")
@@ -36,20 +35,30 @@ export class MoviesComponent implements OnInit {
     )
   }
 
-  reserve(idMovie) {
+  reserve(movie: Movie) {
+    
     const reservation: Reservation = new Reservation();
     reservation._id = Math.random(),
-    reservation.idFilm = idMovie;
-    reservation.idUser = this.authService.connectedUser.id;;
-    reservation.nbPlace = this.nbPlace;
+    reservation.idFilm = movie._id;
+    reservation.idUser = this.authService.connectedUser.id;
+    reservation.nbPlace = movie.nbPlaceRes;
     this.moviesService.addReservation(reservation).subscribe(
       (reservation: Array<Reservation>) => {
         this.reservation = reservation;
-        console.log(this.reservation);
+        movie.nbPlace -= movie.nbPlaceRes
+        this.moviesService.updateMovie(movie).subscribe(
+          (movies:Movie)=>{
+            this.router.navigate(["/moviesmanager"]);
+          },
+          (error)=>{
+            console.log("error update", error)
+          }
+        );
       },
       (error) => {
         console.log("error")
       }
     )
   }
+
 }

@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit {
   submit(): any{
     this.authService.login(this.login, this.password).subscribe((userInfo: any) => {
         this.authService.connectedUser = userInfo;
+        this.authService.connectedAdmin = userInfo.isAdmin;
         this.router.navigate(['/movies']);
       },
       (err) => {

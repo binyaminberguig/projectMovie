@@ -95,6 +95,12 @@ app.post('/reservation',(request, response) => {
     })
 });
 
+app.delete('/reservations/:id',(request, response) => {
+    Reservation.deleteOne({_id:request.params.id}, (error)=>{
+        if(error) return response.status(400).json({error:error});
+        response.status(201).json({msg:"ok"});
+    })
+})
 
 app.put('/movies/:id',(request, response) => {
     let requestMovie = request.body;
@@ -132,7 +138,7 @@ app.post('/login',(request, response) => {
         request.session.userId= user._id;
         this.isConnected = true;
         console.log( request.session.userId);
-        response.status(200).json({login:user.login, fullName:user.fullName, id:user.id});
+        response.status(200).json({login:user.login, fullName:user.fullName, id:user.id, isAdmin: user.isAdmin});
         
     });
 });

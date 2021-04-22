@@ -4,5 +4,6 @@ export class Movie {
     synopsis: string;
     picture: any;
     nbPlace:number;
+    nbPlaceRes: number;
   }
 

@@ -34,7 +34,6 @@ export class MovieComponent implements OnInit {
   updateMovie():void {
     this.moviesService.updateMovie(this.movie).subscribe(
       (movies:Movie)=>{
-        console.log(this.movie.picture);
         this.router.navigate(["/moviesmanager"]);
       },
       (error)=>{
