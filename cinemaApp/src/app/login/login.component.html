@@ -1,3 +1,8 @@
+<p *ngFor="let alert of alerts">
+  <ngb-alert [type]="alert.type" (closed)="close(alert)">{{ alert.message }}</ngb-alert>
+</p>
+
+
 <div class="col-4 offset-4">
  <mat-card style="text-align:center; margin-top: 100px">
       <mat-card-title>Login :</mat-card-title>
