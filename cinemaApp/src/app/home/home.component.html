@@ -1,8 +1,7 @@
-<div class="login-wrapper" fxLayout="column" fxLayoutAlign="center center">
-  <mat-card class="box">
-    <mat-card-header>
-      <mat-card-title>Connectez-vous : </mat-card-title>
-    </mat-card-header>
+<div class="col-4 offset-4">
+ <mat-card style="text-align:center; margin-top: 100px">
+      <mat-card-title>Connectez-vous :</mat-card-title>
+   <br>
     <mat-form-field>
       <mat-label>Login</mat-label>
       <input matInput type="text" [(ngModel)]="login">
@@ -13,7 +12,8 @@
       <input matInput type="password" [(ngModel)]="password">
     </mat-form-field>
     <br/><br/>
-    <button (click)="submit()" mat-raised-button color="accent" style="float:right;" >Login</button>
-    <button *ngIf="!authService.connectedUser" routerLink="/register" routerLinkActive="active-link" mat-raised-button color="accent">Register</button>
-  </mat-card>
+    <button (click)="submit()" mat-button color="primary">Login</button>
+    <button routerLink="/register" mat-button routerLinkActive="active-link" color="primary">Register</button>
+    </mat-card>
 </div>
+

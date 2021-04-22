@@ -19,7 +19,6 @@ export class HomeComponent implements OnInit {
   submit(): any{
     this.authService.login(this.login, this.password).subscribe((userInfo: any) => {
         this.authService.connectedUser = userInfo;
-        
         this.router.navigate(['/notes']);
       },
       (err) => {
