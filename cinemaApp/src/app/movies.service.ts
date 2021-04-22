@@ -18,8 +18,8 @@ export class MoviesService {
     return this.http.post("http://localhost:3000/movie",movie);
   }
 
-  deleteNote(noteId:any):Observable<any>{
-    return this.http.delete("http://localhost:3000/movies/"+ noteId)
+  deleteMovie(movieId:any):Observable<any>{
+    return this.http.delete("http://localhost:3000/movies/"+ movieId)
   }
 
   getMovie(movieId:any):Observable<any>{

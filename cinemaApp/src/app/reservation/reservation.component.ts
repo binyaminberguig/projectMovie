@@ -11,8 +11,6 @@ import {Reservation} from "../models/reservation";
 
 export class ReservationComponent implements OnInit {
   displayedColumns: string[] = ['position', 'title', 'nbPlace','date','actions'];
-  noteTitle: string;
-  noteText: string;
   img: any;
   accept="image/png, image/jpeg"
   reservation: any;

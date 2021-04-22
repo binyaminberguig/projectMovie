@@ -3,11 +3,11 @@ import {AuthService} from '../auth.service';
 import {Router} from '@angular/router';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class LoginComponent implements OnInit {
   login: any = '';
   password: any = '';
 
@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
   submit(): any{
     this.authService.login(this.login, this.password).subscribe((userInfo: any) => {
         this.authService.connectedUser = userInfo;
-        this.router.navigate(['/notes']);
+        this.router.navigate(['/movies']);
       },
       (err) => {
         console.log('error', err);

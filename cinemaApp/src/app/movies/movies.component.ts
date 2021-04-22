@@ -6,11 +6,11 @@ import {Reservation} from "../models/reservation";
 import {AuthService} from "../auth.service";
 
 @Component({
-  selector: 'app-cinema',
-  templateUrl: './cinema.component.html',
-  styleUrls: ['./cinema.component.scss']
+  selector: 'app-movies',
+  templateUrl: './movies.component.html',
+  styleUrls: ['./movies.component.scss']
 })
-export class CinemaComponent implements OnInit {
+export class MoviesComponent implements OnInit {
 
   movies: Array<Movie>
   reservation: Array<Reservation>;

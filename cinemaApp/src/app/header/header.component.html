@@ -1,7 +1,7 @@
 <mat-toolbar color="primary">
   <span>Cinemapp</span>
-  <button *ngIf="authService.connectedUser" routerLink="/notes" routerLinkActive="active-link" mat-button>Gestion du cinema</button>
-  <button *ngIf="authService.connectedUser" routerLink="/cinema" routerLinkActive="active-link" mat-button>Films</button>
-  <button *ngIf="authService.connectedUser" routerLink="/reservation" routerLinkActive="active-link" mat-button>Mes réservations</button>
-  <button *ngIf="authService.connectedUser" routerLinkActive="active-link" mat-button color="warn" (click)="logout()">Deconnexion</button>
+  <button *ngIf="authService.connectedUser" routerLink="/movies" routerLinkActive="active-link" mat-button>Movies</button>
+  <button *ngIf="authService.connectedUser" routerLink="/reservation" routerLinkActive="active-link" mat-button>My Reservations</button>
+  <button *ngIf="authService.connectedUser" routerLink="/moviesmanager" routerLinkActive="active-link" mat-button>Movies Manager</button>
+  <button *ngIf="authService.connectedUser" routerLinkActive="active-link" mat-button color="warn" (click)="logout()">Log Out</button>
 </mat-toolbar>

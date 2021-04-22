@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {HomeComponent} from './home/home.component';
-import {NotesComponent} from './notes/notes.component';
+import {LoginComponent} from './login/login.component';
+import {MoviesManagerComponent} from './moviesManager/moviesManager.component';
 import {RegisterComponent} from './register/register.component';
-import {CinemaComponent} from './cinema/cinema.component';
+import {MoviesComponent} from './movies/movies.component';
 import {ReservationComponent} from './reservation/reservation.component';
-import {NoteComponent} from "./note/note.component";
+import {MovieComponent} from "./movie/movie.component";
 
 const routes: Routes = [
-  {path: '', component: HomeComponent},
-  {path: 'cinema', component: CinemaComponent},
-  {path: 'note', component: NoteComponent},
+  {path: '', component: LoginComponent},
+  {path: 'movies', component: MoviesComponent},
+  {path: 'movie', component: MovieComponent},
   {path: 'reservation', component: ReservationComponent},
-  {path: 'notes', component: NotesComponent},
+  {path: 'moviesmanager', component: MoviesManagerComponent},
   {path: 'register', component: RegisterComponent}
 ];
 

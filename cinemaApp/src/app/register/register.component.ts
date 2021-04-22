@@ -19,7 +19,7 @@ export class RegisterComponent implements OnInit {
   submit():any{
     this.authService.register(this.login,this.password,this.fullName).subscribe((userInfo:any)=>{
         this.authService.connectedUser = userInfo;
-        this.router.navigate(["/notes"]);
+        this.router.navigate(["/moviesmanager"]);
       },
       (err)=>{
         console.log("error",err)

@@ -4,11 +4,11 @@ import {Movie} from '../models/movie';
 import {Router} from '@angular/router';
 
 @Component({
-  selector: 'app-notes',
-  templateUrl: './notes.component.html',
-  styleUrls: ['./notes.component.scss']
+  selector: 'app-moviesmanager',
+  templateUrl: './moviesmanager.component.html',
+  styleUrls: ['./moviesmanager.component.scss']
 })
-export class NotesComponent implements OnInit {
+export class MoviesManagerComponent implements OnInit {
   displayedColumns: string[] = ['position', 'title', 'nbPlace','actions'];
   movieTitle: string;
   movieSynopsis: string;
@@ -32,7 +32,7 @@ export class NotesComponent implements OnInit {
     movie.synopsis = this.movieSynopsis,
     movie.picture = "./assets/images/" + this.moviePicture.name;
     movie.nbPlace = this.moviePlace,
-
+    console.log(this.moviePicture)
     this.movieTitle = '';
     this.movieSynopsis = '';
     this.moviePicture= '';
@@ -50,8 +50,8 @@ export class NotesComponent implements OnInit {
   }
 
 
-  editNote(noteId: number): void {
-    this.router.navigate(['/note', noteId]);
+  editMovie(movieId: number): void {
+    this.router.navigate(['/movie', movieId]);
   }
 
 
@@ -59,7 +59,6 @@ export class NotesComponent implements OnInit {
     this.moviesService.getMovies().subscribe(
       (movies: Array<Movie>) => {
         this.movies = movies;
-        console.log(this.movies);
       },
       (error) => {
         console.log("error", error)
@@ -67,18 +66,18 @@ export class NotesComponent implements OnInit {
     )
   }
 
-  deleteNote(movie: Movie) {
+  deleteMovie(movie: Movie) {
     console.log(movie);
-    this.moviesService.deleteNote(movie._id).subscribe(
+    this.moviesService.deleteMovie(movie._id).subscribe(
       () => {
         const index = this.movies.indexOf(movie);
         this.movies.splice(index, 1);
+        this.getMovies();
       },
       (error) => {
         console.log('delete error',error);
       }
     );
-    this.getMovies();
   }
 }
 

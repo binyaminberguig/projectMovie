@@ -39,28 +39,17 @@ app.get('/movies', (request,response) => {
     });
 });
 
-app.get('/notes/:id',(request, response) => {
-    console.log(request.params.id)
-    Note.findOne( {_id: request.params.id}, (error, note) => {
-        if (error){
-            return response.status(404).json({error: error});
-        }
-        response.status(200).json(note);
-    });
-});
-
 app.get('/movie/:id',(request, response) => {
     console.log('salut');
     console.log(request.params.id)
-    Movie.findOne( {_id: request.params.id}, (error, note) => {
+    Movie.findOne( {_id: request.params.id}, (error, movie) => {
         if (error){
             return response.status(404).json({error: error});
         }
-        response.status(200).json(note);
+        response.status(200).json(movie);
     });
 });
 
-// POST /notes
 app.post('/movie',(request, response) => {
     let requestMovie = request.body;
 
@@ -88,7 +77,6 @@ app.get('/reservation', (request,response) => {
     });
 });
 
-// POST /notes
 app.post('/reservation',(request, response) => {
     let requestReservation = request.body;
     const today = new Date();
@@ -125,7 +113,6 @@ app.put('/movies/:id',(request, response) => {
     })
 })
 
-// DELETE /notes:id
 app.delete('/movies/:id',(request, response) => {
     Movie.deleteOne({_id:request.params.id}, (error)=>{
         if(error) return response.status(400).json({error:error});
