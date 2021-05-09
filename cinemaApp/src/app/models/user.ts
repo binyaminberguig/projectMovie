@@ -3,5 +3,6 @@ export class User {
   fullName: string;
   login:string;
   password: string;
+  isAdmin: boolean;
 }
 

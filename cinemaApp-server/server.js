@@ -38,6 +38,39 @@ app.get('/movies', (request,response) => {
     });
 });
 
+app.get('/users', (request,response) => {
+    if(!this.isConnected) return response.status(200).json([]);
+    User.find({}).sort({_id:-1}).exec((error,users)=>{
+        if(error) return console.error(err);
+        response.json(users);
+    });
+});
+
+app.get('/user/:id',(request, response) => {
+    User.findOne( {_id: request.params.id}, (error, user) => {
+        if (error){
+            return response.status(404).json({error: error});
+        }
+        response.status(200).json(user);
+    });
+});
+
+app.put('/users/:id',(request, response) => {
+    let requestUser = request.body;
+    console.log('update');
+    let newUser = new User({
+        _id: request.params.id,
+        fullName: requestUser.fullName,
+        login: requestUser.login,
+        password: requestUser.password,
+        isAdmin: requestUser.isAdmin
+    })
+    User.updateOne({_id:request.params.id}, newUser, (error, user)=>{
+        if(error) return response.status(400).json({error:error});
+        response.status(201).json(user);
+    })
+})
+
 app.get('/movie/:id',(request, response) => {
     Movie.findOne( {_id: request.params.id}, (error, movie) => {
         if (error){
@@ -115,6 +148,13 @@ app.put('/movies/:id',(request, response) => {
 
 app.delete('/movies/:id',(request, response) => {
     Movie.deleteOne({_id:request.params.id}, (error)=>{
+        if(error) return response.status(400).json({error:error});
+        response.status(201).json({msg:"ok"});
+    })
+})
+
+app.delete('/users/:id',(request, response) => {
+    User.deleteOne({_id:request.params.id}, (error)=>{
         if(error) return response.status(400).json({error:error});
         response.status(201).json({msg:"ok"});
     })

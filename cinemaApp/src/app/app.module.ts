@@ -27,6 +27,8 @@ import { MovieComponent } from './movie/movie.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { UsersManagerComponent } from './users-manager/users-manager.component';
+import { UserComponent } from './user/user.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import { MatNativeDateModule } from '@angular/material/core';
     RegisterComponent,
     MoviesComponent,
     ReservationComponent,
-    MovieComponent
+    MovieComponent,
+    UsersManagerComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,

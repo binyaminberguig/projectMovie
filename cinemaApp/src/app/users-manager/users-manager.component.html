@@ -1,0 +1,38 @@
+
+<table mat-table [dataSource]="this.users" style="width: 100%;">
+
+  <!-- Position Column -->
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef> id </th>
+    <td mat-cell *matCellDef="let element"> {{element._id}} </td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="fullName">
+    <th mat-header-cell *matHeaderCellDef> FullName </th>
+    <td mat-cell *matCellDef="let element"> {{element.fullName}} </td>
+  </ng-container>
+
+  <!-- Weight Column -->
+  <ng-container matColumnDef="login">
+    <th mat-header-cell *matHeaderCellDef> Login </th>
+    <td mat-cell *matCellDef="let element"> {{element.login}} </td>
+  </ng-container>
+
+  <!-- Weight Column -->
+  <ng-container matColumnDef="isAdmin">
+    <th mat-header-cell *matHeaderCellDef> isAdmin </th>
+    <td mat-cell *matCellDef="let element"> {{element.isAdmin}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell  *matHeaderCellDef > Actions </th>
+    <td mat-cell *matCellDef="let row" >
+      <button mat-button color="primary" (click)="editUser(row)">Update</button>
+      <button mat-button color="warn" (click)="deleteUser(row)">Delete</button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
