@@ -31,7 +31,6 @@ app.use(bodyParser.json());
 app.use(session({secret:"mySecretKey", cookie:{maxAge: 24 * 60 * 60 * 1000}}));
 
 app.get('/movies', (request,response) => {
-    console.log(request.session.userId);
     if(!this.isConnected) return response.status(200).json([]);
     Movie.find({}).sort({_id:-1}).exec((error,movies)=>{
         if(error) return console.error(err);
@@ -40,8 +39,6 @@ app.get('/movies', (request,response) => {
 });
 
 app.get('/movie/:id',(request, response) => {
-    console.log('salut');
-    console.log(request.params.id)
     Movie.findOne( {_id: request.params.id}, (error, movie) => {
         if (error){
             return response.status(404).json({error: error});
@@ -62,14 +59,12 @@ app.post('/movie',(request, response) => {
 
     newMovie.save((error, movie)=>{
         if(error) return console.error(error);
-        console.log(movie);
         response.json(movie);
     })
 });
 
 
 app.get('/reservation', (request,response) => {
-    console.log(request.session.userId);
     if(!this.isConnected) return response.status(200).json([]);
     Reservation.find({}).sort({_id:-1}).exec((error,reservation)=>{
         if(error) return console.error(err);
@@ -79,18 +74,18 @@ app.get('/reservation', (request,response) => {
 
 app.post('/reservation',(request, response) => {
     let requestReservation = request.body;
-    const today = new Date();
 
+    console.log(requestReservation);
     let newReservation = new Reservation({
         idUser: requestReservation.idUser,
         idFilm: requestReservation.idFilm,
-        date: today,
+        date: requestReservation.date,
         nbPlace: requestReservation.nbPlace
     })
+    
 
     newReservation.save((error, movie)=>{
         if(error) return console.error(error);
-        console.log(movie);
         response.json(movie);
     })
 });
@@ -112,7 +107,6 @@ app.put('/movies/:id',(request, response) => {
         picture: requestMovie.picture,
         nbPlace: requestMovie.nbPlace
     })
-    console.log(newMovie);
     Movie.updateOne({_id:request.params.id}, newMovie, (error, movie)=>{
         if(error) return response.status(400).json({error:error});
         response.status(201).json(movie);
@@ -131,13 +125,11 @@ app.post('/login',(request, response) => {
         if (error){
             return response.status(404).json({error: error});
         }
-        console.log(user);
         if (!user){
             return response.status(401).json({error: "Wrong login"});
         }
         request.session.userId= user._id;
         this.isConnected = true;
-        console.log( request.session.userId);
         response.status(200).json({login:user.login, fullName:user.fullName, id:user.id, isAdmin: user.isAdmin});
         
     });

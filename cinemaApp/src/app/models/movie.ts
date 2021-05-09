@@ -5,5 +5,6 @@ export class Movie {
     picture: any;
     nbPlace:number;
     nbPlaceRes: number;
+    dateRes: any;
   }
 

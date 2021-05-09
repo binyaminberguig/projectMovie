@@ -5,6 +5,7 @@ import {Movie} from '../models/movie';
 import {Reservation} from "../models/reservation";
 import {AuthService} from "../auth.service";
 
+
 @Component({
   selector: 'app-movies',
   templateUrl: './movies.component.html',
@@ -42,13 +43,17 @@ export class MoviesComponent implements OnInit {
     reservation.idFilm = movie._id;
     reservation.idUser = this.authService.connectedUser.id;
     reservation.nbPlace = movie.nbPlaceRes;
+    var date = new Date(movie.dateRes)
+    date.setDate(date.getDate()+1);
+    reservation.date = date;
+    
     this.moviesService.addReservation(reservation).subscribe(
       (reservation: Array<Reservation>) => {
         this.reservation = reservation;
         movie.nbPlace -= movie.nbPlaceRes
         this.moviesService.updateMovie(movie).subscribe(
           (movies:Movie)=>{
-            this.router.navigate(["/moviesmanager"]);
+            this.router.navigate(["/reservation"]);
           },
           (error)=>{
             console.log("error update", error)

@@ -3,6 +3,6 @@ export class Reservation {
   idUser?: string;
   idFilm?: number| string;
   nbPlace: number;
-  date?: string;
+  date?: Date;
 }
 

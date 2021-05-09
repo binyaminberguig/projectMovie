@@ -28,7 +28,8 @@ export class ReservationComponent implements OnInit {
         this.reservation.forEach(element => {
           this.moviesService.getMovie(element.idFilm).subscribe(
             (movie: Movie) => {
-              element.idFilm = movie.title;
+              element.idFilm = movie._id;
+              element.title = movie.title;
             },
             (error) => {
               console.log("error", error)
@@ -43,11 +44,28 @@ export class ReservationComponent implements OnInit {
   }
 
   deleteReservation(reservation: Reservation) {
+
     this.moviesService.deleteReservation(reservation._id).subscribe(
       () => {
-        const index = this.reservation.indexOf(reservation);
-        this.reservation.splice(index, 1);
-        this.getReservation();
+        this.moviesService.getMovie(reservation.idFilm).subscribe(
+          (movie:Movie)=>{
+            movie.nbPlace += reservation.nbPlace; 
+            this.moviesService.updateMovie(movie).subscribe(
+              (movies:Movie)=>{                   
+                const index = this.reservation.indexOf(reservation);
+                this.reservation.splice(index, 1);
+                this.getReservation();
+              },
+              (error)=>{
+                console.log("error update", error)
+              }
+            )
+          },
+          (error)=>{
+            console.log("error update", error)
+          }
+          
+        )
       },
       (error) => {
         console.log('delete error',error);
