@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  close(alert: Alert) {
+  close(alert: Alert): any {
     this.alerts.splice(this.alerts.indexOf(alert), 1);
   }
 

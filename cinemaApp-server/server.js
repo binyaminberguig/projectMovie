@@ -30,6 +30,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(session({secret:"mySecretKey", cookie:{maxAge: 24 * 60 * 60 * 1000}}));
 
+//--------------Movies--------------//
+
 app.get('/movies', (request,response) => {
     if(!this.isConnected) return response.status(200).json([]);
     Movie.find({}).sort({_id:-1}).exec((error,movies)=>{
@@ -37,6 +39,56 @@ app.get('/movies', (request,response) => {
         response.json(movies);
     });
 });
+
+app.get('/movie/:id',(request, response) => {
+    Movie.findOne( {_id: request.params.id}, (error, movie) => {
+        if (error){
+            return response.status(404).json({error: error});
+        }
+        response.status(200).json(movie);
+    });
+});
+
+app.post('/movie',(request, response) => {
+    let requestMovie = request.body;
+
+    let newMovie = new Movie({
+        title: requestMovie.title,
+        synopsis: requestMovie.synopsis,
+        picture: requestMovie.picture,
+        nbPlace: requestMovie.nbPlace
+    })
+
+    newMovie.save((error, movie)=>{
+        if(error) return console.error(error);
+        response.json(movie);
+    })
+});
+
+app.put('/movies/:id',(request, response) => {
+    let requestMovie = request.body;
+    console.log('update');
+    let newMovie = new Movie({
+        _id: request.params.id,
+        title: requestMovie.title,
+        synopsis: requestMovie.synopsis,
+        picture: requestMovie.picture,
+        nbPlace: requestMovie.nbPlace
+    })
+    Movie.updateOne({_id:request.params.id}, newMovie, (error, movie)=>{
+        if(error) return response.status(400).json({error:error});
+        response.status(201).json(movie);
+    })
+})
+
+app.delete('/movies/:id',(request, response) => {
+    Movie.deleteOne({_id:request.params.id}, (error)=>{
+        if(error) return response.status(400).json({error:error});
+        response.status(201).json({msg:"ok"});
+    })
+})
+
+//--------------Users--------------//
 
 app.get('/users', (request,response) => {
     if(!this.isConnected) return response.status(200).json([]);
@@ -71,31 +123,14 @@ app.put('/users/:id',(request, response) => {
     })
 })
 
-app.get('/movie/:id',(request, response) => {
-    Movie.findOne( {_id: request.params.id}, (error, movie) => {
-        if (error){
-            return response.status(404).json({error: error});
-        }
-        response.status(200).json(movie);
-    });
-});
-
-app.post('/movie',(request, response) => {
-    let requestMovie = request.body;
-
-    let newMovie = new Movie({
-        title: requestMovie.title,
-        synopsis: requestMovie.synopsis,
-        picture: requestMovie.picture,
-        nbPlace: requestMovie.nbPlace
+app.delete('/users/:id',(request, response) => {
+    User.deleteOne({_id:request.params.id}, (error)=>{
+        if(error) return response.status(400).json({error:error});
+        response.status(201).json({msg:"ok"});
     })
+})
 
-    newMovie.save((error, movie)=>{
-        if(error) return console.error(error);
-        response.json(movie);
-    })
-});
-
+//--------------Reservations--------------//
 
 app.get('/reservation', (request,response) => {
     if(!this.isConnected) return response.status(200).json([]);
@@ -130,35 +165,8 @@ app.delete('/reservations/:id',(request, response) => {
     })
 })
 
-app.put('/movies/:id',(request, response) => {
-    let requestMovie = request.body;
-    console.log('update');
-    let newMovie = new Movie({
-        _id: request.params.id,
-        title: requestMovie.title,
-        synopsis: requestMovie.synopsis,
-        picture: requestMovie.picture,
-        nbPlace: requestMovie.nbPlace
-    })
-    Movie.updateOne({_id:request.params.id}, newMovie, (error, movie)=>{
-        if(error) return response.status(400).json({error:error});
-        response.status(201).json(movie);
-    })
-})
 
-app.delete('/movies/:id',(request, response) => {
-    Movie.deleteOne({_id:request.params.id}, (error)=>{
-        if(error) return response.status(400).json({error:error});
-        response.status(201).json({msg:"ok"});
-    })
-})
-
-app.delete('/users/:id',(request, response) => {
-    User.deleteOne({_id:request.params.id}, (error)=>{
-        if(error) return response.status(400).json({error:error});
-        response.status(201).json({msg:"ok"});
-    })
-})
+//--------------Connexion--------------//
 
 app.post('/login',(request, response) => {
     User.findOne( {login:request.body.login, password:request.body.password}, (error, user) => {

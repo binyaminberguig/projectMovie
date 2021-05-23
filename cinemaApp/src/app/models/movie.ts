@@ -3,7 +3,7 @@ export class Movie {
     title: string;
     synopsis: string;
     picture: any;
-    nbPlace:number;
+    nbPlace: number;
     nbPlaceRes: number;
     dateRes: any;
   }

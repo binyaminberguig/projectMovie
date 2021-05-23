@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {Movie} from "../models/movie";
-import {MoviesService} from "../movies.service";
-import {Reservation} from "../models/reservation";
+import {Movie} from '../models/movie';
+import {MoviesService} from '../movies.service';
+import {Reservation} from '../models/reservation';
+import {ReservationsService} from '../reservation.service';
 
 @Component({
   selector: 'app-reservation',
@@ -10,19 +11,19 @@ import {Reservation} from "../models/reservation";
 })
 
 export class ReservationComponent implements OnInit {
-  displayedColumns: string[] = [ 'title', 'nbPlace','date','actions'];
+  displayedColumns: string[] = [ 'title', 'nbPlace', 'date', 'actions'];
   img: any;
-  accept="image/png, image/jpeg"
+  accept = 'image/png, image/jpeg';
   reservation: any;
 
-  constructor(public moviesService: MoviesService) { }
+  constructor(public moviesService: MoviesService, public reservationsService: ReservationsService) { }
 
   ngOnInit(): void {
     this.getReservation();
   }
 
-  getReservation() {
-    this.moviesService.getReservations().subscribe(
+  getReservation(): any {
+    this.reservationsService.getReservations().subscribe(
       (reservation: Array<Reservation>) => {
         this.reservation = reservation;
         this.reservation.forEach(element => {
@@ -32,43 +33,43 @@ export class ReservationComponent implements OnInit {
               element.title = movie.title;
             },
             (error) => {
-              console.log("error", error)
+              console.log('error', error);
             }
-          )
+          );
         });
       },
       (error) => {
-        console.log("error", error)
+        console.log('error', error);
       }
-    )
+    );
   }
 
-  deleteReservation(reservation: Reservation) {
+  deleteReservation(reservation: Reservation): any {
 
-    this.moviesService.deleteReservation(reservation._id).subscribe(
+    this.reservationsService.deleteReservation(reservation._id).subscribe(
       () => {
         this.moviesService.getMovie(reservation.idFilm).subscribe(
-          (movie:Movie)=>{
-            movie.nbPlace += reservation.nbPlace; 
+          (movie: Movie) => {
+            movie.nbPlace += reservation.nbPlace;
             this.moviesService.updateMovie(movie).subscribe(
-              (movies:Movie)=>{                   
+              () => {
                 const index = this.reservation.indexOf(reservation);
                 this.reservation.splice(index, 1);
                 this.getReservation();
               },
-              (error)=>{
-                console.log("error update", error)
+              (error) => {
+                console.log('error update', error);
               }
-            )
+            );
           },
-          (error)=>{
-            console.log("error update", error)
+          (error) => {
+            console.log('error update', error);
           }
-          
-        )
+
+        );
       },
       (error) => {
-        console.log('delete error',error);
+        console.log('delete error', error);
       }
     );
   }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
-import {User} from "../models/user";
-import {UsersService} from "../users.service";
+import {ActivatedRoute, Router} from '@angular/router';
+import {User} from '../models/user';
+import {UsersService} from '../users.service';
 
 @Component({
   selector: 'app-user',
@@ -9,10 +9,10 @@ import {UsersService} from "../users.service";
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit {
-  id:any;
-  user:User;
+  id: any;
+  user: User;
 
-  constructor(private route: ActivatedRoute, private router: Router, public usersService:UsersService) { }
+  constructor(private route: ActivatedRoute, private router: Router, public usersService: UsersService) { }
 
   ngOnInit(): void {
     this.user = new User();
@@ -22,19 +22,19 @@ export class UserComponent implements OnInit {
         this.user = user;
       },
       (error) => {
-        console.log("error", error)
+        console.log('error', error);
       }
-    )
+    );
 
   }
 
-  updateUser():void {
+  updateUser(): void {
     this.usersService.updateUser(this.user).subscribe(
-      (user:User)=>{
-        this.router.navigate(["/users-manager"]);
+      (user: User) => {
+        this.router.navigate(['/users-manager']);
       },
-      (error)=>{
-        console.log("error update", error)
+      (error) => {
+        console.log('error update', error);
       }
     );
   }

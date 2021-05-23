@@ -9,12 +9,12 @@ import {Router} from '@angular/router';
   styleUrls: ['./moviesmanager.component.scss']
 })
 export class MoviesManagerComponent implements OnInit {
-  displayedColumns: string[] = ['position', 'title', 'nbPlace','actions'];
+  displayedColumns: string[] = ['position', 'title', 'nbPlace', 'actions'];
   movieTitle: string;
   movieSynopsis: string;
   moviePlace: any;
   moviePicture: any;
-  accept="image/png, image/jpeg"
+  accept = 'image/png, image/jpeg';
   movies: any;
 
 
@@ -27,19 +27,19 @@ export class MoviesManagerComponent implements OnInit {
   addMovie(): void {
 
     const movie: Movie = new Movie();
-    movie._id = Math.random(),
-    movie.title = this.movieTitle,
-    movie.synopsis = this.movieSynopsis,
-    movie.picture = "./assets/images/" + this.moviePicture.name;
-    movie.nbPlace = this.moviePlace,
-    console.log(this.moviePicture)
+    movie._id = Math.random();
+    movie.title = this.movieTitle;
+    movie.synopsis = this.movieSynopsis;
+    movie.picture = './assets/images/' + this.moviePicture.name;
+    movie.nbPlace = this.moviePlace;
+    console.log(this.moviePicture);
     this.movieTitle = '';
     this.movieSynopsis = '';
-    this.moviePicture= '';
+    this.moviePicture = '';
     this.moviePlace = '';
     this.moviesService.addMovie(movie).subscribe(
-      (movie: any) => {
-        this.movies.push(movie);
+      (myMovie: any) => {
+        this.movies.push(myMovie);
         this.getMovies();
       },
       (error) => {
@@ -55,19 +55,18 @@ export class MoviesManagerComponent implements OnInit {
   }
 
 
-  getMovies() {
+  getMovies(): any {
     this.moviesService.getMovies().subscribe(
       (movies: Array<Movie>) => {
         this.movies = movies;
       },
       (error) => {
-        console.log("error", error)
+        console.log('error', error);
       }
-    )
+    );
   }
 
-  deleteMovie(movie: Movie) {
-    console.log(movie);
+  deleteMovie(movie: Movie): any {
     this.moviesService.deleteMovie(movie._id).subscribe(
       () => {
         const index = this.movies.indexOf(movie);
@@ -75,7 +74,7 @@ export class MoviesManagerComponent implements OnInit {
         this.getMovies();
       },
       (error) => {
-        console.log('delete error',error);
+        console.log('delete error', error);
       }
     );
   }

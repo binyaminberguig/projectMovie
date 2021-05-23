@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {MoviesService} from "../movies.service";
-import {Router} from "@angular/router";
-import {User} from "../models/user";
-import {UsersService} from "../users.service";
+import {Router} from '@angular/router';
+import {User} from '../models/user';
+import {UsersService} from '../users.service';
 
 
 @Component({
@@ -12,7 +11,7 @@ import {UsersService} from "../users.service";
 })
 export class UsersManagerComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'fullName', 'login','isAdmin', 'actions'];
+  displayedColumns: string[] = ['id', 'fullName', 'login', 'isAdmin', 'actions'];
   users: any;
 
 
@@ -22,22 +21,22 @@ export class UsersManagerComponent implements OnInit {
     this.getUsers();
   }
 
-  getUsers() {
+  getUsers(): any {
     this.usersService.getUsers().subscribe(
       (users: Array<User>) => {
         this.users = users;
       },
       (error) => {
-        console.log("error", error)
+        console.log('error', error);
       }
-    )
+    );
   }
 
   editUser(user: number): void {
     this.router.navigate(['/user', user]);
   }
 
-  deleteUser(user: User) {
+  deleteUser(user: User): any {
     console.log(user);
     this.usersService.deleteUser(user._id).subscribe(
       () => {
@@ -46,7 +45,7 @@ export class UsersManagerComponent implements OnInit {
         this.getUsers();
       },
       (error) => {
-        console.log('delete error',error);
+        console.log('delete error', error);
       }
     );
   }
