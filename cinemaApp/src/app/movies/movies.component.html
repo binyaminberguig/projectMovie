@@ -19,7 +19,7 @@
         </mat-form-field>
         <mat-card-actions class="example-card">
           <mat-form-field  appearance="fill">
-          <mat-label>Nombre de personnes</mat-label>
+          <mat-label>Person Number</mat-label>
           <mat-select [(ngModel)]="movie.nbPlaceRes">
             <mat-option *ngIf="movie.nbPlace>=1" value="1">1</mat-option>
             <mat-option *ngIf="movie.nbPlace>=2" value="2">2</mat-option>
@@ -29,7 +29,7 @@
             <mat-option *ngIf="movie.nbPlace==0" >Not Available</mat-option>
           </mat-select>
         </mat-form-field>
-        <button mat-button color="primary" (click)="reserve(movie)">Reserver</button>
+        <button mat-button color="primary" (click)="reserve(movie)">Reserve</button>
         </mat-card-actions>
       </mat-card>
     </div>
