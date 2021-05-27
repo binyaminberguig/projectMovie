@@ -3,6 +3,7 @@ import {Movie} from '../models/movie';
 import {MoviesService} from '../movies.service';
 import {Reservation} from '../models/reservation';
 import {ReservationsService} from '../reservation.service';
+import {AuthService} from '../auth.service';
 
 @Component({
   selector: 'app-reservation',
@@ -16,14 +17,14 @@ export class ReservationComponent implements OnInit {
   accept = 'image/png, image/jpeg';
   reservation: any;
 
-  constructor(public moviesService: MoviesService, public reservationsService: ReservationsService) { }
+  constructor(public moviesService: MoviesService, public reservationsService: ReservationsService, public authService: AuthService) { }
 
   ngOnInit(): void {
     this.getReservation();
   }
 
   getReservation(): any {
-    this.reservationsService.getReservations().subscribe(
+    this.reservationsService.getReservations(this.authService.connectedUser.id).subscribe(
       (reservation: Array<Reservation>) => {
         this.reservation = reservation;
         this.reservation.forEach(element => {

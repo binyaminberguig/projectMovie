@@ -132,10 +132,12 @@ app.delete('/users/:id',(request, response) => {
 
 //--------------Reservations--------------//
 
-app.get('/reservation', (request,response) => {
+app.get('/reservation/:id', (request,response) => {
+    console.log(request.params.id);
     if(!this.isConnected) return response.status(200).json([]);
-    Reservation.find({}).sort({_id:-1}).exec((error,reservation)=>{
+    Reservation.find({idUser:request.params.id }).sort({_id:-1}).exec((error,reservation)=>{
         if(error) return console.error(err);
+        console.log(reservation);
         response.json(reservation);
     });
 });

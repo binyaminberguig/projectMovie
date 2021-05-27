@@ -12,12 +12,15 @@ export class ReservationsService {
     return this.http.post('http://localhost:3000/reservation', reservation);
   }
 
-  getReservations(): any{
-    return this.http.get('http://localhost:3000/reservation');
+  getReservations(userId): any{
+    return this.http.get('http://localhost:3000/reservation/' + userId);
   }
 
   deleteReservation(resaId: any): Observable<any>{
     return this.http.delete('http://localhost:3000/reservations/' + resaId);
   }
+
+
+
 }
 
